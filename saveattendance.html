@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Attendance</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>View Attendance</h1>
+        <nav>
+            <a href="website.html">Home</a>
+            <a href="markattendance.html">Mark Attendance</a>
+            <a href="saveattendance.html">View Attendance</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+    <main>
+        <section class="table-section">
+            <h2>Attendance Records</h2>
+            <table id="attendanceTable">
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                </tr>
+            </table>
+        </section>
+    </main>
+    <script>
+        fetch('http://localhost:3000/saveattendance')  // Fixed the URL to match the correct route
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('attendanceTable');
+                data.forEach(record => {
+                    const row = table.insertRow();
+                    row.insertCell(0).textContent = record.name;
+                    row.insertCell(1).textContent = record.date;
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>
